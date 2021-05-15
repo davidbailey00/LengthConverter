@@ -70,7 +70,10 @@ struct ContentView: View {
                     }
                 }
 
-                Button(action: {}) {
+                Button(action: {
+                    inputString = String(format: "%.2f", outputLength)
+                    swap(&inputMeasurement, &outputMeasurement)
+                }) {
                     HStack {
                         Image(systemName: "arrow.triangle.swap")
                         Text("Swap direction")
