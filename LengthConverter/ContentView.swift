@@ -21,6 +21,9 @@ struct ContentView: View {
     @State private var inputLength = ""
     @State private var inputMeasurement = Measurement.meters
 
+    private var outputLength = 0.0
+    @State private var outputMeasurement = Measurement.feet
+
     var body: some View {
         NavigationView {
             Form {
@@ -34,6 +37,25 @@ struct ContentView: View {
                         ForEach(Measurement.allCases, id: \.self) {
                             Text($0.rawValue)
                         }
+                    }
+                }
+
+                Section(header: Text("Converted Length")) {
+                    HStack {
+                        Text("\(outputLength, specifier: "%.2f")")
+                        Text(outputMeasurement.rawValue)
+                    }
+                    Picker("Unit", selection: $outputMeasurement) {
+                        ForEach(Measurement.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
+                    }
+                }
+
+                Button(action: {}) {
+                    HStack {
+                        Image(systemName: "arrow.triangle.swap")
+                        Text("Swap direction")
                     }
                 }
             }
