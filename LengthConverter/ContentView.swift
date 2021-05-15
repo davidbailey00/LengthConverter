@@ -17,6 +17,18 @@ enum Measurement: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
+extension Measurement {
+    var valueInMeters: Double {
+        switch self {
+        case .meters: return 1
+        case .kilometers: return 1000
+        case .feet: return 0.3048
+        case .yards: return 0.9144
+        case .miles: return 1609.344
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var inputLength = ""
     @State private var inputMeasurement = Measurement.meters
