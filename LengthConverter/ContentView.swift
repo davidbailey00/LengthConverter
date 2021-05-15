@@ -14,7 +14,7 @@ enum Measurement: String, CaseIterable, Identifiable {
     case yards
     case miles
 
-    var id: String { self.rawValue }
+    var id: String { rawValue }
 }
 
 extension Measurement {
@@ -30,18 +30,24 @@ extension Measurement {
 }
 
 struct ContentView: View {
-    @State private var inputLength = ""
+    @State private var inputString = ""
     @State private var inputMeasurement = Measurement.meters
-
-    private var outputLength = 0.0
     @State private var outputMeasurement = Measurement.feet
+
+    private var inputLength: Double { Double(inputString) ?? 0 }
+    private var lengthInMeters: Double {
+        inputLength * inputMeasurement.valueInMeters
+    }
+    private var outputLength: Double {
+        lengthInMeters / outputMeasurement.valueInMeters
+    }
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Original Length")) {
                     HStack {
-                        TextField("Length", text: $inputLength)
+                        TextField("Length", text: $inputString)
                             .keyboardType(.decimalPad)
                         Text(inputMeasurement.rawValue)
                     }
